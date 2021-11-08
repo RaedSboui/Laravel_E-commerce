@@ -34,7 +34,7 @@ class CartController extends Controller
 
         //Cart::add($request->id, $request->name, 1, $request->price);
 
-        return redirect()->route('front.product', $request->category_id)->with('success', 'Product is Added to Cart Successfully !');
+        return redirect()->route('front.product', $request->category_id)->with('success', 'Product Successfully Added to Cart !');
     }
 
 
@@ -43,7 +43,7 @@ class CartController extends Controller
     {
         Cart::update($request->rowId, $request->quantity);
 
-        return redirect()->route('cart.index')->with('success', 'Product Quantity is Updated Successfully !');
+        return redirect()->route('cart.index')->with('success', 'Product Quantity was Updated Successfully !');
     }
 
 
@@ -52,7 +52,7 @@ class CartController extends Controller
     {
         Cart::remove($request->rowId);
 
-        return redirect()->route('cart.index')->with('success', 'Item Removed Successfully !');;
+        return redirect()->route('cart.index')->with('success', 'Product Removed Successfully !');;
     }
 
 

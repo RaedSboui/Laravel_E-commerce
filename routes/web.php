@@ -28,7 +28,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
 
 // USER
 Route::get('/', 'front\HomeController@home')->name('home');
-Route::get('/about', 'front\HomeController@apropos')->name('about');
+Route::get('/about', 'front\HomeController@about')->name('about');
 Route::get('/mail', 'front\HomeController@contact')->name('mail');
 Route::get('/front/products/{category}', 'front\ProductController@index')->name('front.product');
 Route::get('/front/products/single/{product}', 'front\ProductController@single')->name('front.single');

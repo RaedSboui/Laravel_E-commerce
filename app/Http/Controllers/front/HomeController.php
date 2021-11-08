@@ -15,7 +15,7 @@ class HomeController extends Controller
         
     public function about(){
         $categories = Category::all();
-        return view('pages.front.apropos', compact('categories'));
+        return view('pages.front.about', compact('categories'));
     }
 
     public function contact() { 

@@ -12,7 +12,7 @@
             <div class="float-start"></div>
             <hr>
             <div class="float-end mb-4">
-                <a class="btn btn-outline-warning" onclick="openModal(null, 'add')">
+                <a class="btn btn-outline-warning" onclick="openModal(null, null, 'add')">
                     <i class="fa fa-plus"></i>
                 </a>
             </div>
@@ -22,6 +22,13 @@
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
             </div>
+        @endif
+        @if ($errors->any())
+            <ul class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
         @endif
 
         <table  id="table"
@@ -50,6 +57,7 @@
                     <th class="text-center" data-field="id" data-sortable="true">ID</th>
                     <th class="text-center" data-field="image" data-sortable="true">Image</th>
                     <th class="text-center" data-field="name" data-sortable="true">Name</th>
+                    <th class="text-center" data-field="price" data-sortable="true">Price</th>
                     <th class="text-center" data-field="category_id" data-sortable="true">Category</th>
                     <th class="text-center" data-field="action" data-sortable="true">Action</th>
                 </tr>
@@ -63,11 +71,12 @@
                         <td class="text-center">{{ $product->id }}</td>
                         <td class="text-center"><img src="{{ asset('images/products/'.$product->image) }}" height="80" class="rounded-circle"></td>
                         <td class="text-center">{{ $product->name }}</td>
+                        <td class="text-center">{{ $product->price }}</td>
                         <td class="text-center">{{ $product->category->name }}</td>
                         <td class="text-center">
                             <a class="btn btn-outline-primary" href="{{ route('products.show', $product) }}"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-outline-success" onclick="openModal({{ $product }},'edit')"><i class="fa fa-edit"></i></a>
-                            <a class="btn btn-outline-danger" onclick="openModal({{ $product }},'delete')"><i class="fa fa-trash"></i></a>
+                            <a class="btn btn-outline-success" onclick="openModal({{ $product }}, {{ $categories }},'edit')"><i class="fa fa-edit"></i></a>
+                            <a class="btn btn-outline-danger" onclick="openModal({{ $product }}, null,'delete')"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                     @endforeach   
@@ -96,7 +105,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="category_id">Category :</label>
-                            <select name="category_id" class="form-control" id="event_id">
+                            <select name="category_id" class="form-control">
                                 @foreach ($categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
@@ -140,14 +149,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formUpdate" method="POST">
+                    <form id="formUpdate" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
                             <label for="category_id">Category :</label>
                             <select name="category_id" class="form-control" id="event_id">
-                                @foreach ($categories as $cat)
-                                    <option value="{{$cat->id}}">{{$cat->name}}</option>    
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -161,7 +170,7 @@
                         </div>
                         <div class="form-group">
                             <label for="image">Image :</label>
-                            <input type="file" name="image" class="form-control">
+                            <input type="file"  name="image" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>

@@ -1,4 +1,4 @@
-function openModal(product, mode) {
+function openModal(product, categories, mode) {
     const button = document.createElement("button");
     const container = document.getElementById("main-container");
 
@@ -10,12 +10,10 @@ function openModal(product, mode) {
       case 'add': button.setAttribute("data-target", "#addProductModal");
         break;
       case 'edit':
-        
             button.setAttribute("data-target", "#updateProductModal");
             document.getElementById("exampleModalTitle").textContent = "Update " + product.name ;
             document.getElementById("formUpdate").setAttribute("action", "http://e-commerce.test/admin/products/"+ product.id);
-            
-            document.getElementById('event_id').value = product.category_id;
+            document.getElementById("event_id").value = product.category_id;
             document.getElementById("name").setAttribute("value", product.name);
             document.getElementById("price").setAttribute("value", product.price);
             document.getElementById("description").innerText = product.description;        
@@ -26,6 +24,6 @@ function openModal(product, mode) {
             button.setAttribute("data-target", "#deleteModal");
     }
 
-    container?.appendChild(button);
+    container?.appendChild(button);+
     button.click();
   }

@@ -47,7 +47,6 @@ class ProductController extends Controller
             'description' => 'required'
         ]);
         $inputs=$request->all();
-
         if($photo=$request->file("image")){
             $newfile=strtotime(date("Y-m-d H:i:s")).".".$photo->getClientOriginalExtension();
             $photo->move('images/products/',$newfile);
@@ -91,26 +90,26 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        
         $request->validate([
             'category_id' => 'required',
             'name' => 'required',
             'price' => 'required',
-            'image'=>'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            //'image'=>'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'required',
         ]);
 
         $inputs=$request->all();
-        dd($inputs);
+        
         if($photo=$request->file("image")){
-
             unlink('images/products/'.$product->image);
-
             $newfile=strtotime(date("Y-m-d H:i:s")).".".$photo->getClientOriginalExtension();
             $photo->move('images/products/',$newfile);
             $inputs['image']=$newfile;
-        }
 
-        Product::update($inputs);
+        }
+        //dd($inputs);
+        $product->update($inputs);
 
         return redirect()->route('products.index')
                 ->with('success','Product updated successfully!');

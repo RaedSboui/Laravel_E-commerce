@@ -1,12 +1,11 @@
 @extends('layouts.front/template')
-<!-- breadcrumbs -->
-	@include('layouts.front/filedariane')
-<!-- //breadcrumbs -->
 
 @section('sidebar')
 @include("layouts.front.filedariane")
 	@parent
 @endsection
+
+
 
 @section('content')
 <!--typography-page -->
